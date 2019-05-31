@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<GridPane fx:id="gridPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="UI.Controllers.SpectrumController">
+
+    <rowConstraints>
+        <RowConstraints minHeight="300.0"/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+
+    <HBox GridPane.rowIndex="0">
+        <LineChart fx:id="signalChart" title="Сигнал">
+            <xAxis>
+                <NumberAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+        <LineChart fx:id="recSignalChart" title="Восстановление сигнала">
+            <xAxis>
+                <NumberAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+    </HBox>
+
+    <HBox GridPane.rowIndex="1">
+        <LineChart fx:id="ImChart" title="Мнимая часть (Im)">
+            <xAxis>
+                <NumberAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+        <LineChart fx:id="ReChart" title="Действительная часть (Re)">
+            <xAxis>
+                <NumberAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+    </HBox>
+
+    <HBox GridPane.rowIndex="2">
+        <LineChart fx:id="centSpetrChart" title="Центрированный спектр">
+            <xAxis>
+                <NumberAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+        <FlowPane alignment="CENTER">
+            <Button text="Сохранить"/>
+        </FlowPane>
+    </HBox>
+
+</GridPane>
