@@ -8,27 +8,38 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="gridPane" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.Controllers.ResultsController">
+<?import javafx.scene.control.Label?>
+<GridPane fx:id="gridPane" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="UI.Controllers.ResultsController">
 
     <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
+        <RowConstraints/>
+        <RowConstraints/>
     </rowConstraints>
 
     <VBox alignment="CENTER" GridPane.rowIndex="0">
-        <HBox fx:id="noisedImages">
+
+        <HBox maxWidth="100" fx:id="noisedImages" spacing="10.0">
+            <Label>Оригинал</Label>
         </HBox>
-        <HBox fx:id="filteredImages">
+        <HBox maxWidth="100" fx:id="dftImages" spacing="10.0">
+            <Label>Фурье преобразование</Label>
+        </HBox>
+        <HBox maxWidth="100" fx:id="filteredImages" spacing="10.0">
+            <Label>Отфильтрованное изображение</Label>
+        </HBox>
+        <HBox maxWidth="100" fx:id="filteredDftImages" spacing="10.0">
+            <Label>Фурье преобразование с фильтром</Label>
         </HBox>
     </VBox>
     <HBox alignment="CENTER" GridPane.rowIndex="1">
-        <Button onAction="#openSpectrumViewHandler" text="Спектры" />
-        <Button onAction="#saveHandler" text="Сохранить" />
+        <Button onAction="#openSpectrumViewHandler" text="Спектры"/>
+        <Button onAction="#saveHandler" text="Сохранить"/>
         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </GridPane.margin>
     </HBox>
     <columnConstraints>
-        <ColumnConstraints />
+        <ColumnConstraints/>
     </columnConstraints>
 </GridPane>

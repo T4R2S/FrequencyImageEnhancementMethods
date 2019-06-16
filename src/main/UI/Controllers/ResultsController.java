@@ -36,54 +36,70 @@ public class ResultsController {
     public HBox noisedImages;
     public HBox filteredImages;
     public GridPane gridPane;
+    public HBox dftImages;
+    public HBox filteredDftImages;
 
-    void setImage(Image noisedImage, WritableImage filteredImage, boolean redChannel, boolean greenChannel, boolean blueChannel) {
+    void setImage(Image noisedImage, WritableImage dftImage, WritableImage filteredImage, WritableImage filteredDftImage, boolean redChannel, boolean greenChannel, boolean blueChannel) {
 
-        double width = noisedImage.getWidth() - 100;
-        double height = noisedImage.getHeight() - 100;
-
-        double scaleY = height / noisedImage.getHeight();
-        double scaleX = width / noisedImage.getWidth();
-
-        Affine affine = new Affine(new Scale(scaleX, scaleY));
-
-        addImage(noisedImages, affine, noisedImage);
-        addImage(filteredImages, affine, filteredImage);
+        addImage(noisedImages, noisedImage);
+        addImage(dftImages, dftImage);
+        addImage(filteredImages, filteredImage);
+        addImage(filteredDftImages, filteredDftImage);
 
         if (redChannel) {
 
             Image image = getRedChannel(noisedImage);
-            addImage(noisedImages, affine, image);
+            addImage(noisedImages, image);
+
+            image = getRedChannel(dftImage);
+            addImage(dftImages, image);
 
             image = getRedChannel(filteredImage);
-            addImage(filteredImages, affine, image);
+            addImage(filteredImages, image);
+
+            image = getRedChannel(filteredDftImage);
+            addImage(filteredDftImages, image);
         }
 
         if (greenChannel) {
 
             Image image = getGreenChannel(noisedImage);
-            addImage(noisedImages, affine, image);
+            addImage(noisedImages, image);
+
+            image = getGreenChannel(dftImage);
+            addImage(dftImages, image);
 
             image = getGreenChannel(filteredImage);
-            addImage(filteredImages, affine, image);
+            addImage(filteredImages, image);
+
+            image = getGreenChannel(filteredDftImage);
+            addImage(filteredDftImages, image);
         }
 
         if (blueChannel) {
 
             WritableImage image = getBlueChannel(noisedImage);
-            addImage(noisedImages, affine, image);
+            addImage(noisedImages, image);
+
+            image = getBlueChannel(dftImage);
+            addImage(dftImages, image);
 
             image = getBlueChannel(filteredImage);
-            addImage(filteredImages, affine, image);
+            addImage(filteredImages, image);
+
+            image = getBlueChannel(filteredDftImage);
+            addImage(filteredDftImages, image);
         }
     }
 
     private WritableImage getRedChannel(Image image) {
 
         PixelReader pixelReader = image.getPixelReader();
+        int width = (int)image.getWidth();
+        int height = (int)image.getHeight();
 
-        WritableImage writableImage = new WritableImage(400, 400);
-        PixelWriter pixelWriter = writableImage.getPixelWriter(); // gc.getPixelWriter();
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
 
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
@@ -100,9 +116,11 @@ public class ResultsController {
     private WritableImage getGreenChannel(Image image) {
 
         PixelReader pixelReader = image.getPixelReader();
+        int width = (int)image.getWidth();
+        int height = (int)image.getHeight();
 
-        WritableImage writableImage = new WritableImage(400, 400);
-        PixelWriter pixelWriter = writableImage.getPixelWriter(); // gc.getPixelWriter();
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
 
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
@@ -119,9 +137,11 @@ public class ResultsController {
     private WritableImage getBlueChannel(Image image) {
 
         PixelReader pixelReader = image.getPixelReader();
+        int width = (int)image.getWidth();
+        int height = (int)image.getHeight();
 
-        WritableImage writableImage = new WritableImage(400, 400);
-        PixelWriter pixelWriter = writableImage.getPixelWriter(); // gc.getPixelWriter();
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
 
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
@@ -135,10 +155,9 @@ public class ResultsController {
         return writableImage;
     }
 
-    private void addImage(HBox box, Affine affine, Image image) {
-        Canvas can = new Canvas(image.getWidth() * affine.getMxx(), image.getHeight() * affine.getMxx());
+    private void addImage(HBox box, Image image) {
+        Canvas can = new Canvas(image.getWidth(), image.getHeight());
         GraphicsContext gc = can.getGraphicsContext2D();
-        gc.setTransform(affine);
         gc.drawImage(image, 0, 0);
 
         FlowPane flowPanes = new FlowPane(can);
@@ -203,7 +222,7 @@ public class ResultsController {
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
 
-        controller.testChart(signal, complexNumbers, reverseComplexNumbers);
+//        controller.testChart(signal, complexNumbers, reverseComplexNumbers);
 
         newWindow.show();
 

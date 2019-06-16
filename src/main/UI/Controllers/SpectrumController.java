@@ -12,8 +12,7 @@ public class SpectrumController {
     public LineChart ImChart;
     public LineChart recSignalChart;
 
-    public void testChart(double[] values, ComplexNumber[] complexNumbers, ComplexNumber[] reverseComplexNumbers) {
-
+    public void drawChart(double[][][] pixels, ComplexNumber[][][] complexNumbers, ComplexNumber[][][] reverseComplexNumbers) {
 
         XYChart.Series signal = new XYChart.Series();
         XYChart.Series recSignal = new XYChart.Series();
@@ -21,18 +20,22 @@ public class SpectrumController {
         XYChart.Series re = new XYChart.Series();
         XYChart.Series centSpetrum = new XYChart.Series();
 
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                for (int ch = 0; ch < 3; ch++) {
+//                    signal.getData().add(new XYChart.Data(i, pixels[ch][y][x] * ComplexNumber.step(y * x)));
+//
+//                    re.getData().add(new XYChart.Data(i, complexNumbers[ch][y][x].getRe()));
+//                    im.getData().add(new XYChart.Data(i, complexNumbers[ch][y][x].getIm()));
+//                }
+//            }
+//        }
+
         for (int i = 0; i < 1024; i++) {
-            signal.getData().add(new XYChart.Data(i, values[i] * ComplexNumber.step(i)));
 
-            re.getData().add(new XYChart.Data(i, complexNumbers[i].getRe()));
-            im.getData().add(new XYChart.Data(i, complexNumbers[i].getIm()));
 
-            double result = Math.sqrt(Math.pow(complexNumbers[i].getRe(), 2) + Math.pow(complexNumbers[i].getIm(), 2)) / values.length;
-            centSpetrum.getData().add(new XYChart.Data(i, result));
-
-            result = (reverseComplexNumbers[i].getRe() + reverseComplexNumbers[i].getIm()) / values.length * ComplexNumber.step(i);
-            recSignal.getData().add(new XYChart.Data(i, result));
         }
+
 
         signalChart.getData().add(signal);
         recSignalChart.getData().add(recSignal);
